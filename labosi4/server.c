@@ -7,8 +7,7 @@
 #define DEFAULT_HOST "127.0.0.1"
 #define DEFAULT_PORT 7000
 #define DEFAULT_BACKLOG 128
-#define HTML_TOP "<!DOCTYPE html><html><head><title>Title of the document</title></head><body>"
-#define HTML_DOWN "</body></html>"
+
 
 uv_loop_t *loop;
 struct sockaddr_in addr;
@@ -50,7 +49,7 @@ void req_read_cb(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf) {
 	  	char * date_time_now = asctime(timeinfo);
 	  	char * response;
         if (strstr(buf->base, "GET") != NULL && strstr(buf->base, "timedate") != NULL) {
-        	char * temp = concat("HTTP/1.0 200 OK\nContent-length: 257\nContent-Type: text/html; charset=utf-8\nServer:libuv C++ (Ubuntu)\n\n<html><head><style>h1{margin: 1em 0 0.5em 0;color: #343434;font-weight: normal;font-family: 'Ultra', sans-serif;font-size: 36px;line-height: 42px;text-transform: uppercase;text-shadow: 0 2px white, 0 3px #777;}</style></head><body><h1>", date_time_now);
+        	char * temp = concat("HTTP/1.0 200 OK\nContent-length: 259\nContent-Type: text/html; charset=utf-8\nServer:libuv C++ (Ubuntu)\n\n<html><head><style>h1{margin: 1em 0 0.5em 0;color: #343434;font-weight: normal;font-family: 'Ultra', sans-serif;font-size: 36px;line-height: 42px;text-transform: uppercase;text-shadow: 0 2px white, 0 3px #777;}</style></head><body><h1>", date_time_now);
         	response = concat(temp, "</h1></body></html>");
 		} else if(strstr(buf->base,"SIMPLE TIME") != NULL) {
 	        response = asctime(timeinfo);
