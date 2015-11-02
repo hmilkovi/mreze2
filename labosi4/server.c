@@ -55,7 +55,7 @@ void req_read_cb(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf) {
 		} else if(strstr(buf->base,"SIMPLE TIME") != NULL) {
 	        response = asctime(timeinfo);
 	  	} else {
-	  		char * temp = "HTTP/1.0 400 Bad Request\nContent-length: 58\nContent-Type: text/html; charset=utf-8\nServer:libuv C++ (Ubuntu)\n\n<html><body><h1>400 Bad Request</h1></body></html>";
+	  		char * temp = "HTTP/1.0 400 Bad Request\nContent-length: 50\nContent-Type: text/html; charset=utf-8\nServer:libuv C++ (Ubuntu)\n\n<html><body><h1>400 Bad Request</h1></body></html>";
         	response = temp;
 	  	}
 
