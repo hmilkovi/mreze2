@@ -49,7 +49,7 @@ void req_read_cb(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf) {
 	  	char * date_time_now = asctime(timeinfo);
 	  	char * response;
         if (strstr(buf->base, "GET") != NULL && strstr(buf->base, "timedate") != NULL) {
-        	char * temp = concat("HTTP/1.0 200 OK\nContent-length: 259\nContent-Type: text/html; charset=utf-8\nServer:libuv C++ (Ubuntu)\n\n<html><head><style>h1{margin: 1em 0 0.5em 0;color: #343434;font-weight: normal;font-family: 'Ultra', sans-serif;font-size: 36px;line-height: 42px;text-transform: uppercase;text-shadow: 0 2px white, 0 3px #777;}</style></head><body><h1>", date_time_now);
+        	char * temp = concat("HTTP/1.0 200 OK\nContent-length: 279\nContent-Type: text/html; charset=utf-8\nServer:libuv C++ (Ubuntu)\n\n<html><head><style>h1{margin: 1em 0 0.5em 0;color: #343434;font-weight: normal;font-family: 'Ultra', sans-serif;font-size: 36px;line-height: 42px;text-transform: uppercase;text-shadow: 0 2px white, 0 3px #777;}</style></head><body><h1>", date_time_now);
         	response = concat(temp, "</h1></body></html>");
 		} else if(strstr(buf->base,"SIMPLE TIME") != NULL) {
 	        response = asctime(timeinfo);
@@ -76,6 +76,7 @@ void on_new_connection(uv_stream_t *server, int status) {
     uv_tcp_t *client = (uv_tcp_t*) malloc(sizeof(uv_tcp_t));
     uv_tcp_init(loop, client);
     if (uv_accept(server, (uv_stream_t*) client) == 0) {
+    	printf("TCP accepted...");
         uv_read_start((uv_stream_t*) client, alloc_buffer, req_read_cb);
     }
     else {
